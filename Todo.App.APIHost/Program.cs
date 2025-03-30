@@ -1,3 +1,6 @@
+using Todo.App.APIHost.Configuration;
+using Todo.App.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,7 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddInfrastructureServices();
+builder.Services.ConfigureServices(builder.Configuration);
+
+
 var app = builder.Build();
+
+app.ConfigureApp(app.Environment);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
