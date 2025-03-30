@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Todo.App.APIHost.Configuration;
 using Todo.App.Infrastructure;
 using Todo.App.Infrastructure.DatabaseContext;
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddInfrastructureServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.ConfigureServices(builder.Configuration);
 
 
@@ -18,7 +19,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDBContext>();
-    dbContext.Database.EnsureCreated();
+    dbContext.Database.Migrate();
 }
 
 app.ConfigureApp(app.Environment);
