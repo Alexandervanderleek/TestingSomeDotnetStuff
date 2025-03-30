@@ -1,5 +1,6 @@
 using Todo.App.APIHost.Configuration;
 using Todo.App.Infrastructure;
+using Todo.App.Infrastructure.DatabaseContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,12 @@ builder.Services.ConfigureServices(builder.Configuration);
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDBContext>();
+    dbContext.Database.EnsureCreated();
+}
 
 app.ConfigureApp(app.Environment);
 
