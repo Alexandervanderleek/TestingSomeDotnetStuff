@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Todo.App.Core.Models;
 
 namespace Todo.App.Core.Interfaces.Repositories;
-internal interface ITodoRepository
+public interface ITodoRepository
 {
-   IQueryable<TodoItem> Todos { get; }
+    Task<IEnumerable<TodoItem>> GetAllAsync();
 }
 

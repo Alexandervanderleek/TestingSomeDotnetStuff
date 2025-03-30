@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Todo.App.Core.Models;
-internal class TodoItem
+
+public class TodoItem
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+    [Required]
+    [MaxLength(100)]
+    public string Name { get; set; } = string.Empty;
+    [MaxLength(500)]
+    public string Description { get; set; } = string.Empty;
 }
 
